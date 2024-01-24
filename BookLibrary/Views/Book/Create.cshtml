@@ -1,0 +1,41 @@
+﻿@model BookLibrary.Models.ViewModels.BookViewModel
+
+@{
+    ViewData["Title"] = "Create Book";
+}
+
+<h2>Create Book</h2>
+
+<form asp-action="Create">
+    @Html.AntiForgeryToken
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="UserName" value="@User.Identity.Name" />
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Author" class="control-label"></label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PublicationDate" class="control-label"></label>
+        <input asp-for="PublicationDate" class="form-control" />
+        <span asp-validation-for="PublicationDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

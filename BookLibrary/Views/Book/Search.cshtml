@@ -1,0 +1,48 @@
+@model ICollection<BookLibrary.Models.ViewModels.BookViewModel>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results</h2>
+
+<p>Showing results for: @ViewBag.Query</p>
+
+<div class="text-center">
+
+    <table style="border-collapse: collapse; width: 100%; border: 2px solid #ddd;">
+        <thead>
+            <tr>
+                <th style="border: 2px solid #ddd; padding: 8px;">Title</th>
+                <th style="border: 2px solid #ddd; padding: 8px;">Author</th>
+                <th style="border: 2px solid #ddd; padding: 8px;">Publication Date</th>
+                <th style="border: 2px solid #ddd; padding: 8px;">Added By</th>
+                <th style="border: 2px solid #ddd; padding: 8px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td style="border: 2px solid #ddd; padding: 8px;">@book.Title</td>
+                    <td style="border: 2px solid #ddd; padding: 8px;">@book.Author</td>
+                    <td style="border: 2px solid #ddd; padding: 8px;">@book.PublicationDate.ToString("yyyy-MM-dd")</td>
+                    <td style="border: 2px solid #ddd; padding: 8px;">@book.UserName</td>
+                    <td style="border: 2px solid #ddd; padding: 8px;">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="@Url.Action("Edit", "Book", new { id = book.Id })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("Remove", "Book", new { id = book.Id })" class="btn btn-danger">Remove</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login", "User")" class="btn btn-secondary">Login to Edit</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
